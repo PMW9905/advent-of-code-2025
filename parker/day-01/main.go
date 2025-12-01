@@ -9,13 +9,11 @@ import (
 const TotalDialNumbers = 100
 const StartingDialPosition = 50
 
-func parseRotation(rotation string) (int, error) {
+func parseRotationAsRight(rotation string) (int, error) {
 	direction := rotation[0]
 	numStr := rotation[1:]
 
 	num, err := strconv.Atoi(numStr)
-
-	num = num % TotalDialNumbers
 
 	if direction == 'L' {
 		num = 100 - num
@@ -23,12 +21,12 @@ func parseRotation(rotation string) (int, error) {
 	return num, err
 }
 
-func getPassword(turns []string) int {
+func countStopsOnZero(turns []string) int {
 	password := 0
 	position := StartingDialPosition
 
 	for _, rotation := range turns {
-		num, err := parseRotation(rotation)
+		num, err := parseRotationAsRight(rotation)
 
 		if err != nil {
 			panic(err)
@@ -51,6 +49,6 @@ func main() {
 		panic(err)
 	}
 
-	password := getPassword(lines)
-	fmt.Println(password)
+	password := countStopsOnZero(lines)
+	fmt.Println("Part 1 Answer:", password)
 }
