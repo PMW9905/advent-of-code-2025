@@ -37,12 +37,41 @@ func partOne(lines []string) (int, error) {
 
 		location = (location + adjustedClicks) % LockLength
 
-
 		if location == 0 {
 			password += 1
 		}
+	}
 
-		fmt.Println(direction, clicks, location, password)
+	return password, nil
+}
+
+func partTwo(lines []string) (int, error) {
+	password := 0
+	location := StartingLocation
+
+	for _, line := range lines {
+		direction, clicks, err := getRotation(line)
+
+		if err != nil {
+			return -1, err
+		}
+
+		password += clicks / LockLength
+
+		adjustedClicks := clicks % LockLength
+
+		if direction == 'L' {
+			if location - adjustedClicks <= 0 && location != 0 {
+				password += 1
+			}
+			adjustedClicks = LockLength - adjustedClicks
+		} else {
+			if location + adjustedClicks >= LockLength {
+				password += 1
+			}
+		}
+
+		location = (location + adjustedClicks) % LockLength
 	}
 
 	return password, nil
@@ -56,5 +85,17 @@ func main() {
 	}
 
 	partOneAnswer, err := partOne(lines)
+	if err != nil {
+		panic(err)
+	}
+
 	fmt.Printf("Part 1 answer: %d\n", partOneAnswer)
+
+	partTwoAnswer, err := partTwo(lines)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("Part 2 answer: %d\n", partTwoAnswer)
+
 }
