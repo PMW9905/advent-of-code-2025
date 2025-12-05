@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaperPal {
-	char[][] paperMap;
+	private char[][] paperMap;
+	private char[][] updatedMap;
 	private char paperSymbol = '@';
 	private int totalPaper = 0;
+	private int currentPaper = 1;
 	private int maxLenI;
 	private int maxLenJ;
 
@@ -15,20 +17,31 @@ public class PaperPal {
 
 	public int getTotalPaperAccess(char[][] input) {
 		this.paperMap = input;
+		updatedMap = this.paperMap;
 		if (paperMap != null) {
 			maxLenI = paperMap.length;
 			// loop through values
-			for (int i = 0; i < paperMap.length; i++) {
-				maxLenJ = paperMap[i].length;
-				for (int j = 0; j < paperMap[i].length; j++) {
-					char cur = paperMap[i][j];
-					if (paperSymbol == cur) {
-						if (isPaperValid(getCheckValues(i, j))) {
-							totalPaper++;
+			while (currentPaper != 0) {
+				currentPaper = 0;
+				for (int i = 0; i < paperMap.length; i++) {
+					maxLenJ = paperMap[i].length;
+					for (int j = 0; j < paperMap[i].length; j++) {
+						char cur = paperMap[i][j];
+						if (paperSymbol == cur) {
+							if (isPaperValid(getCheckValues(i, j))) {
+								totalPaper++;
+								currentPaper++;
+								updatedMap[i][j] = 'x';
+							}
 						}
 					}
 				}
+				System.out.println("total paper removed in this pass: " + currentPaper);
+				if(currentPaper!=0) {
+					paperMap = updatedMap;
+				}
 			}
+
 		}
 		return totalPaper;
 	}
@@ -46,7 +59,7 @@ public class PaperPal {
 					z++;
 				}
 				if (z > 3) {
-					//if more than 3 paper around the current checked paper, return false
+					// if more than 3 paper around the current checked paper, return false
 					return false;
 				}
 			}
