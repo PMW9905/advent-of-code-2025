@@ -102,8 +102,23 @@ func partOne(idRangesString string) int {
 	return fakeIDs
 }
 
+func fuknBruteForceBaby(left int, leftStr string, right int, rightStr string) int {
+}
+
+func partTwo(idRangesString string) int {
+	idRangesSlice := strings.Split(idRangesString, ",")
+	fakeIDs := 0
+
+	for _, idRange := range idRangesSlice {
+		fakeIDs += fuknBruteForceBaby(getIDRange(idRange))
+		fmt.Println("RUNNING TALLY: ", fakeIDs)
+	}
+	return fakeIDs
+
+}
+
 func main() {
-	lines, err := utils.ReadInput("day-02/input.txt")
+	lines, err := utils.ReadInput("day-02/input_small.txt")
 
 	if err != nil {
 		panic(err)
@@ -114,4 +129,8 @@ func main() {
 	partOneAnswer := partOne(idRangesString)
 
 	fmt.Printf("Part 1 answer: %d\n", partOneAnswer)
+
+	partTwoAnswer := partTwo(idRangesString)
+
+	fmt.Printf("Part 2 answer: %d\n", partTwoAnswer)
 }

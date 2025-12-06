@@ -39,4 +39,16 @@ func Pow(base, exp int) int {
 	return result
 }
 
+func GetFactorsExceptSelf(n int) []int {
+	factors := []int{1}
 
+	for i := 2; i*i <= n; i++ {
+		if n%i==0 {
+			factors = append(factors,i)
+			if n/i != i {
+				factors = append(factors,n/i)
+			}
+		}
+	}
+	return factors
+}
