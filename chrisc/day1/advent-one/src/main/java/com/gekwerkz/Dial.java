@@ -28,13 +28,16 @@ public class Dial {
     }
 
     private void turnDial(int turns) {
+        int totalZeroOccurences = 0;
+        if(this.value > 0 && this.value + turns <= 0 && turns < 0){
+            this.value = this.value + -100;
+        }
         this.value = this.value + turns;
+        totalZeroOccurences = turns < 0 ? (this.value / 100) * -1: this.value / 100;
         this.value = this.value % 100;
         if(this.value < 0){
             this.value = this.value + 100;
         }
-        if(this.value == 0){
-            this.zeroCount++;
-        }
+        zeroCount = zeroCount + totalZeroOccurences;
     }
 }

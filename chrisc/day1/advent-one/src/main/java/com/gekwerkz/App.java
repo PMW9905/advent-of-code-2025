@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         {
-            File input = new File("ROOTPATHHERE\\advent-of-code-2025\\chrisc\\day1\\advent-one\\data\\input.txt");
+            File input = new File("E:\\Advent of Code\\advent-of-code-2025\\chrisc\\day1\\advent-one\\data\\input.txt");
             Dial dial = new Dial();
             System.out.println("Dialmaster 2000 online");
             System.out.println("Current Dial setting:" + dial.getValue());

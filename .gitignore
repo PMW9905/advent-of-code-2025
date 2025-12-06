@@ -2,3 +2,7 @@ input.txt
 .venv
 *.pyc
 __pycache__
+.vscode/launch.json
+.gitignore
+.vscode/settings.json
+*.class
